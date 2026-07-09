@@ -5,7 +5,7 @@ import axios from '../Utils/axios';
 
 
 const Navbar = () => {
-  let data=useContext(Product);
+  let {data}=useContext(Product);
   const pro=useContext(Product);
   data=data.reduce((acc,cur)=>[...acc,cur.category],[])
   data=[...new Set(data)]
@@ -24,7 +24,7 @@ const Navbar = () => {
   return (
     <nav className='w-[16%] h-screen   bg-gray-300'>
       <div className='flex flex-col items-center'>
-         <button className='border m-4 px-6 py-3'>Add Product</button>
+         <Link className='border m-4  px-6 py-3' to={'/create'}>Add Product</Link>
         <hr className='w-[80%]' />
       </div>
       <div className='mx-5'>

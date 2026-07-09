@@ -9,9 +9,10 @@ import axios from '../Utils/axios'
 
 
 const Cards = () => {
-  const x=useContext(Product);
+  const {data}=useContext(Product);
+  const x=data;
   // console.log(x);
-  
+  x.filter
   const {search}=useLocation();
   const [,Url]=search.split('=');
   const categoryUrl=decodeURIComponent(Url);
@@ -22,8 +23,8 @@ const Cards = () => {
   const getSingleCat= async ()=>{
     try{
     const {data}=await axios.get(`products/category/${categoryUrl}`);
-    console.log("inside");
-    setsinglecat(data)
+    // console.log("inside");
+    
     } 
   catch (error) {
     console.log(error);
@@ -32,11 +33,15 @@ const Cards = () => {
 
   useEffect(()=>{
     
-    if(categoryUrl!='undefined') getSingleCat();
+    if(categoryUrl!='undefined') {
+      // getSingleCat();
+      setsinglecat(data.filter((p)=>p.category==categoryUrl))
+
+    }
     else setsinglecat(x)
   },[categoryUrl,x])
   
- console.log(singlecat);
+//  console.log(singlecat);
  
   
   return (
