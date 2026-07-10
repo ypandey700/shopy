@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Product } from '../Utils/Context';
 
 const Details = (prop) => {
     const {id}=useParams();
+    const naviagte = useNavigate();
     
-    const {data}=useContext(Product);
+    const {data,setData}=useContext(Product);
     // console.log(data);
     
     const x=data
@@ -17,7 +18,15 @@ const Details = (prop) => {
     {
         return <h1>Loading</h1>
     }
-   
+    const deleteHandler=(id)=>{
+        const filterPro=x.filter((p)=>p.id!=id)
+        setData(filterPro);
+        localStorage.setItem("Products",JSON.stringify(filterPro));
+        naviagte('/')
+
+        
+    }
+    
   return (
     <div className='w-[80%] h-screen bg-gray-300 m-auto '>
 
@@ -31,8 +40,8 @@ const Details = (prop) => {
                 <h2 className='text-2xl mb-3 font-semibold'>$ {dataa[0].price}</h2>
                 <p className='text-xl mb-10 line-clamp-6 '>{dataa[0].description}</p>
                 <div className='flex gap-20'>
-                     <button className='px-10 py-5 bg-blue-500 rounded-md'>Button 1</button>
-                     <button className='px-10 py-5 bg-blue-500 rounded-md'>Button 1</button>
+                     <Link to={`/Edit/${dataa[0].id}`}  className='px-10 py-5 border border-sky-500 text-sky-500 rounded-md'>Edit</Link>
+                     <button  onClick={()=>deleteHandler(dataa[0].id)} className='px-10 py-5 border border-pink-400 text-pink-400 rounded-md'>Delete</button>
 
                 </div>
                
