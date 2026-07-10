@@ -14,7 +14,7 @@ export const Edit = () => {
     image: "",
     price: "",
     category: "",
-    id:nanoid()
+    id:""
   });
      
       const navigate=useNavigate();
@@ -44,7 +44,7 @@ export const Edit = () => {
       useEffect(()=>{
         const pro=data.filter((p)=>p.id==id);
         setpro(pro[0])
-      },[])
+      },[id])
       console.log(pro);
        
   return (
